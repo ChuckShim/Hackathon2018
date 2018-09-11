@@ -294,6 +294,8 @@
     var IceServersHandler = (function() {
         function getIceServers(connection) {
             var iceServers = [];
+            iceServers.push(getSTUNObj('stun:stun.l.google.com:19302'));
+
             return iceServers;
         }
 
