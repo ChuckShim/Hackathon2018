@@ -72,12 +72,10 @@
 
         // join pre-created meeting room
         this.meet = function(room) {
-            captureUserMedia(function() {
-                !signaler && initSignaler();
-                signaler.join({
-                    to: room.userid,
-                    roomid: room.roomid
-                });
+            !signaler && initSignaler();
+            signaler.join({
+                to: room.userid,
+                roomid: room.roomid
             });
         };
 
