@@ -23,7 +23,14 @@
         function captureUserMedia(callback) {
             var constraints = {
                 audio: true,
-                video: true
+                video: {
+                    mandatory: {
+                        maxWidth: 1280,
+                        maxHeight: 720,
+                        minWidth: 1280,
+                        minHeight: 720
+                    }
+                }
             };
 
             navigator.getUserMedia(constraints, onstream, onerror);
