@@ -14,9 +14,49 @@
     <!--<script src="https://cdn.webrtc-experiment.com/one-to-many-video-broadcasting/meeting.js"> </script>-->
     <script src="../javascripts/meeting.js"></script>
     <style>
-        body {margin: 0;}
+        body {margin: 0; background-color: black;}
         #videos-container { width: 100%; margin: 0; padding: 0; }
         #videos-container video { width: 100%; margin: 0; padding: 0; }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+        .loading-bar {
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            border-radius: 4px;
+            animation: loading 1s ease-in-out infinite;
+        }
+        .loading-bar:nth-child(1) {
+            background-color: #c0392b;
+            animation-delay: 0;
+        }
+        .loading-bar:nth-child(2) {
+            background-color: #c0392b;
+            animation-delay: 0.09s;
+        }
+        .loading-bar:nth-child(3) {
+            background-color: #c0392b;
+            animation-delay: .18s;
+        }
+        .loading-bar:nth-child(4) {
+            background-color: #c0392b;
+            animation-delay: .27s;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(1, 2.2);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -27,9 +67,16 @@
         <!--</td>-->
     <!--</tr>-->
 <!--</table>-->
+    <div id="loading" class="loading">
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+        <div class="loading-bar"></div>
+    </div>
     <div id="videos-container"></div>
 <script>
     //    var hash = window.location.hash.replace('#', '');
+    var loading = document.getElementById('loading');
     var hash = 'rainbow';
     var meeting = new Meeting(hash);
     var videoContainer = document.getElementById('videos-container');
@@ -58,6 +105,7 @@
     meeting.onaddstream = function(e) {
         console.log(e.type);
         if(e.type == 'remote'){
+            loading.setAttribute('style', 'display:none;');
             videoContainer.appendChild(e.video);
         }
     };
